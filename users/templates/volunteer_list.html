@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lilian Initiative{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<header>
-    <h1>Global Crisis Coordination</h1>
-    <nav>
-        <a href="{% url 'resource_list' %}">Resources</a>
-        <a href="{% url 'donation_list' %}">Donations</a>
-        <a href="{% url 'volunteer_list' %}">Volunteers</a>
-    </nav>
-</header>
+{% extends 'base.html' %}
+
+{% block title %}Volunteer List{% endblock %}
+
+{% block content %}
 <h2>Volunteers</h2>
 <a href="{% url 'volunteer_create' %}">Add New Volunteer</a>
-<ul>
-{% for volunteer in volunteers %}
-    <li>{{ volunteer.name }} - {{ volunteer.contact_info }} (Available on {{ volunteer.availability_date }})</li>
-    <a href="{% url 'volunteer_update' volunteer.id %}">Edit</a>
-    <a href="{% url 'volunteer_delete' volunteer.id %}">Delete</a>
-{% endfor %}
-</ul>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Availability</th>
+        <th>Crisis</th>
+        <th>Actions</th>
+    </tr>
+    {% for volunteer in volunteers %}
+    <tr>
+        <td>{{ volunteer.name }}</td>
+        <td>{{ volunteer.role }}</td>
+        <td>{{ volunteer.availability }}</td>
+        <td>{{ volunteer.crisis.name }}</td>
+        <td>
+            <a href="{% url 'volunteer_update' volunteer.pk %}">Edit</a>
+            <a href="{% url 'volunteer_delete' volunteer.pk %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

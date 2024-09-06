@@ -1,49 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lilian Initiative{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<header>
-    <h1>Global Crisis Coordination</h1>
-    <nav>
-        <a href="{% url 'resource_list' %}">Resources</a>
-        <a href="{% url 'donation_list' %}">Donations</a>
-        <a href="{% url 'volunteer_list' %}">Volunteers</a>
-    </nav>
-</header>
-<h2>Crisis Report: {{ crisis.name }}</h2>
+{% extends 'base.html' %}
 
-<p>Description: {{ crisis.description }}</p>
+{% block title %}Report for {{ crisis.name }}{% endblock %}
+
+{% block content %}
+<h2>Report for {{ crisis.name }}</h2>
+<p>{{ crisis.description }}</p>
 <p>Location: {{ crisis.location }}</p>
 <p>Start Date: {{ crisis.start_date }}</p>
-<p>End Date: {{ crisis.end_date }}</p>
-
-<h3>Summary</h3>
-<p>Total Donations: ${{ total_donations }}</p>
-<p>Total Resources: {{ total_resources }} items</p>
-<p>Total Volunteers: {{ volunteer_count }}</p>
+<p>End Date: {{ crisis.end_date|default:"Ongoing" }}</p>
 
 <h3>Resources</h3>
 <ul>
-{% for resource in resources %}
-    <li>{{ resource.name }} - {{ resource.quantity }} units</li>
-{% endfor %}
+    {% for resource in resources %}
+        <li>{{ resource.name }}: {{ resource.quantity }}</li>
+    {% endfor %}
 </ul>
 
 <h3>Donations</h3>
 <ul>
-{% for donation in donations %}
-    <li>{{ donation.donor_name }}: ${{ donation.amount }} on {{ donation.date }}</li>
-{% endfor %}
+    {% for donation in donations %}
+        <li>{{ donation.donor }}: ${{ donation.amount }}</li>
+    {% endfor %}
 </ul>
 
 <h3>Volunteers</h3>
 <ul>
-{% for volunteer in volunteers %}
-    <li>{{ volunteer.name }} ({{ volunteer.contact_info }})</li>
-{% endfor %}
+    {% for volunteer in volunteers %}
+        <li>{{ volunteer.name }} ({{ volunteer.role }})</li>
+    {% endfor %}
 </ul>
+
+<a href="{% url 'crisis_list' %}">Back to Crisis List</a>
+{% endblock %}

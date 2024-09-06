@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Resource, Donation, Volunteer
+from .models import Resource, Donation, Volunteer, User,Crisis
 from .forms import ResourceForm, DonationForm, VolunteerForm
 from django.db import models
 
@@ -42,17 +42,6 @@ def resource_delete(request, pk):
         resource.delete()
         return redirect('resource_list')
     return render(request, 'templates/resource_confirm_delete.html', {'resource': resource})
-def crisis_report(request, crisis_id):
-    crisis = get_object_or_404(Crisis, pk=crisis_id)
-    resources = Resource.objects.filter(crisis=crisis)
-    donations = Donation.objects.filter(crisis=crisis)
-    volunteers = Volunteer.objects.filter(crisis=crisis)
-    return render(request, 'templates/crisis_report.html', {
-        'crisis': crisis,
-        'resources': resources,
-        'donations': donations,
-        'volunteers': volunteers,
-    })
 
 
 # CRUD for Donations
@@ -65,7 +54,7 @@ def donation_create(request):
         form = DonationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('templates/donation_list')
+            return redirect('donation_list')
     else:
         form = DonationForm()
     return render(request, 'templates/donation_form.html', {'form': form})
@@ -76,7 +65,7 @@ def donation_update(request, pk):
         form = DonationForm(request.POST, instance=donation)
         if form.is_valid():
             form.save()
-            return redirect('templates/donation_list')
+            return redirect('donation_list')
     else:
         form = DonationForm(instance=donation)
     return render(request, 'templates/donation_form.html', {'form': form})
@@ -92,7 +81,7 @@ def donation_delete(request, pk):
 # CRUD for Volunteers
 def volunteer_list(request):
     volunteers = Volunteer.objects.all()
-    return render(request, 'templates/volunteer_list.html', {'volunteers': volunteers})
+    return render(request, 'volunteer_list.html', {'volunteers': volunteers})
 
 def volunteer_create(request):
     if request.method == 'POST':
@@ -102,7 +91,7 @@ def volunteer_create(request):
             return redirect('volunteer_list')
     else:
         form = VolunteerForm()
-    return render(request, 'templates/volunteer_form.html', {'form': form})
+    return render(request, 'volunteer_form.html', {'form': form})
 
 def volunteer_update(request, pk):
     volunteer = get_object_or_404(Volunteer, pk=pk)
@@ -110,7 +99,7 @@ def volunteer_update(request, pk):
         form = VolunteerForm(request.POST, instance=volunteer)
         if form.is_valid():
             form.save()
-            return redirect('templates/volunteer_list')
+            return redirect('volunteer_list')
     else:
         form = VolunteerForm(instance=volunteer)
     return render(request, 'volunteer_form.html', {'form': form})
@@ -120,45 +109,24 @@ def volunteer_delete(request, pk):
     if request.method == 'POST':
         volunteer.delete()
         return redirect('volunteer_list')
-    return render(request, 'templates/volunteer_confirm_delete.html', {'volunteer': volunteer})
+    return render(request, 'volunteer_confirm_delete.html', {'volunteer': volunteer})
 def crisis_report(request, crisis_id):
-    crisis = get_object_or_404(Crisis, id=crisis_id)
+    crisis = get_object_or_404(Crisis, pk=crisis_id)
     resources = Resource.objects.filter(crisis=crisis)
     donations = Donation.objects.filter(crisis=crisis)
     volunteers = Volunteer.objects.filter(crisis=crisis)
     
-    total_donations = donations.aggregate(models.Sum('amount'))['amount__sum'] or 0
-    total_resources = resources.aggregate(models.Sum('quantity'))['quantity__sum'] or 0
-    volunteer_count = volunteers.count()
-
-    return render(request, 'templates/crisis_report.html', {
+    return render(request, 'crisis_report.html', {
         'crisis': crisis,
         'resources': resources,
         'donations': donations,
         'volunteers': volunteers,
-        'total_donations': total_donations,
-        'total_resources': total_resources,
-        'volunteer_count': volunteer_count,
     })
-def crises_list(request):
-    crises = crises.objects.all()
-    return render(request, 'templates/crisis_list.html', {'crises': crises})
-    
-
-def crises(request):
+def crisis_list(request):
     crises = Crisis.objects.all()
-    return render(request, 'crises.html', {'crises': crises})
+    return render(request, 'crisis_list.html', {'crises': crises})
 
-def resources(request):
-    resources = Resource.objects.all()
-    return render(request, 'resources.html', {'resources': resources})
 
-def donations(request):
-    donations = Donation.objects.all()
-    return render(request, 'donations.html', {'donations': donations})
 
-def volunteers(request):
-    volunteers = Volunteer.objects.all()
-    return render(request, 'volunteers.html', {'volunteers': volunteers})
 
 

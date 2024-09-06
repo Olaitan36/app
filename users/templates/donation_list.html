@@ -1,26 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lilian Initiative{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<header>
-    <h1>Global Crisis Coordination</h1>
-    <nav>
-        <a href="{% url 'resource_list' %}">Resources</a>
-        <a href="{% url 'donation_list' %}">Donations</a>
-        <a href="{% url 'volunteer_list' %}">Volunteers</a>
-    </nav>
-</header>
+{% extends 'base.html' %}
+
+{% block title %}Donation List{% endblock %}
+
+{% block content %}
 <h2>Donations</h2>
 <a href="{% url 'donation_create' %}">Add New Donation</a>
-<ul>
-{% for donation in donations %}
-    <li>{{ donation.donor_name }} donated ${{ donation.amount }} on {{ donation.date }}</li>
-    <a href="{% url 'donation_update' donation.id %}">Edit</a>
-    <a href="{% url 'donation_delete' donation.id %}">Delete</a>
-{% endfor %}
-</ul>
+<table>
+    <tr>
+        <th>Donor</th>
+        <th>Amount</th>
+        <th>Crisis</th>
+        <th>Actions</th>
+    </tr>
+    {% for donation in donations %}
+    <tr>
+        <td>{{ donation.donor }}</td>
+        <td>${{ donation.amount }}</td>
+        <td>{{ donation.crisis.name }}</td>
+        <td>
+            <a href="{% url 'donation_update' donation.pk %}">Edit</a>
+            <a href="{% url 'donation_delete' donation.pk %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
