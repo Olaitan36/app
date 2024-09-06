@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2024 at 07:34 AM
+-- Generation Time: Sep 07, 2024 at 12:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -85,7 +85,27 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (21, 'Can add session', 6, 'add_session'),
 (22, 'Can change session', 6, 'change_session'),
 (23, 'Can delete session', 6, 'delete_session'),
-(24, 'Can view session', 6, 'view_session');
+(24, 'Can view session', 6, 'view_session'),
+(25, 'Can add crisis', 7, 'add_crisis'),
+(26, 'Can change crisis', 7, 'change_crisis'),
+(27, 'Can delete crisis', 7, 'delete_crisis'),
+(28, 'Can view crisis', 7, 'view_crisis'),
+(29, 'Can add user', 8, 'add_user'),
+(30, 'Can change user', 8, 'change_user'),
+(31, 'Can delete user', 8, 'delete_user'),
+(32, 'Can view user', 8, 'view_user'),
+(33, 'Can add donation', 9, 'add_donation'),
+(34, 'Can change donation', 9, 'change_donation'),
+(35, 'Can delete donation', 9, 'delete_donation'),
+(36, 'Can view donation', 9, 'view_donation'),
+(37, 'Can add resource', 10, 'add_resource'),
+(38, 'Can change resource', 10, 'change_resource'),
+(39, 'Can delete resource', 10, 'delete_resource'),
+(40, 'Can view resource', 10, 'view_resource'),
+(41, 'Can add volunteer', 11, 'add_volunteer'),
+(42, 'Can change volunteer', 11, 'change_volunteer'),
+(43, 'Can delete volunteer', 11, 'delete_volunteer'),
+(44, 'Can view volunteer', 11, 'view_volunteer');
 
 -- --------------------------------------------------------
 
@@ -170,7 +190,12 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
-(6, 'sessions', 'session');
+(6, 'sessions', 'session'),
+(7, 'users', 'crisis'),
+(9, 'users', 'donation'),
+(10, 'users', 'resource'),
+(8, 'users', 'user'),
+(11, 'users', 'volunteer');
 
 -- --------------------------------------------------------
 
@@ -232,7 +257,9 @@ CREATE TABLE `users_crisis` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `date_started` datetime(6) NOT NULL
+  `start_date` datetime(6) NOT NULL,
+  `end_date` int(11) NOT NULL,
+  `location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -245,7 +272,8 @@ CREATE TABLE `users_donation` (
   `id` int(11) NOT NULL,
   `donor_name` varchar(255) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `crisis_id` int(11) NOT NULL
+  `crisis_id` int(11) NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -258,7 +286,8 @@ CREATE TABLE `users_resource` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `crisis_id` int(11) NOT NULL
+  `crisis_id` int(11) NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -271,7 +300,9 @@ CREATE TABLE `users_volunteer` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `crisis_id` int(11) NOT NULL
+  `crisis_id` int(11) NOT NULL,
+  `contact_info` varchar(255) NOT NULL,
+  `availability_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -398,7 +429,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -428,7 +459,7 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`

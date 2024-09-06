@@ -4,4 +4,4 @@
     </a>
   <br />
 
-  This is World LilianInitiative
+  This is World LilianInitiative Crisis Coordination Project. 
