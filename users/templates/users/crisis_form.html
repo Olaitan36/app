@@ -1,0 +1,28 @@
+<!-- crisis_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Crisis</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create a New Crisis</h1>
+        
+        <form method="post" class="form-crisis">
+            {% csrf_token %}
+            <!-- Display form fields -->
+            {{ form.as_p }}
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create Crisis</button>
+            </div>
+        </form>
+
+        <!-- Link to go back to the crisis list -->
+        <a href="{% url 'crisis_list' %}" class="btn btn-secondary">Back to Crisis List</a>
+    </div>
+</body>
+</html>

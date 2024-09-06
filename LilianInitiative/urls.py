@@ -36,6 +36,7 @@ from users.views import base_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', base_view, name='base'),  # Your base view
+    path('', base_view, name='base'),  # Your base view'
     path('users/', include('users.urls')),  # Include users app URLs
+    
     ]
