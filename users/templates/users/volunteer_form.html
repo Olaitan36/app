@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/volunteer_form' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}{% if form.instance.pk %}Edit Volunteer{% else %}Add Volunteer{% endif %}{% endblock %}
 
 {% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Volunteer</h2>
 <form method="post">
     {% csrf_token %}

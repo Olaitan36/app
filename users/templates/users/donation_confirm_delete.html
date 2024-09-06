@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/donation_confirm_delete.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Delete Donation{% endblock %}
 
 {% block content %}
+{% load static %}
+ <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <h2>Are you sure you want to delete the donation from {{ donation.donor }}?</h2>
 <form method="post">
     {% csrf_token %}

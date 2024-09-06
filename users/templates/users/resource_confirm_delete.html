@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/resource_confirm.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Delete Resource{% endblock %}
 
 {% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
 <h2>Are you sure you want to delete {{ resource.name }}?</h2>
 <form method="post">
     {% csrf_token %}

@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/crisis_report.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Report for {{ crisis.name }}{% endblock %}
 
 {% block content %}
+{% load static %}
+ <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <h2>Report for {{ crisis.name }}</h2>
 <p>{{ crisis.description }}</p>
 <p>Location: {{ crisis.location }}</p>

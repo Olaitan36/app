@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/resource_list.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Resource List{% endblock %}
 
 {% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
 <h2>Resources</h2>
 <a href="{% url 'resource_create' %}">Add New Resource</a>
 <table>

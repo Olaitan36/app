@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/donation_list.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Donation List{% endblock %}
 
 {% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <h2>Donations</h2>
 <a href="{% url 'donation_create' %}">Add New Donation</a>
 <table>

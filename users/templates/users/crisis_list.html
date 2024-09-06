@@ -1,13 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'users/base.html' %}
 
 {% block title %}Crisis List{% endblock %}
 
 {% block content %}
-<h2>Crises</h2>
-<a href="{% url 'crisis_create' %}">Add New Crisis</a>
+   {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <a href="{% url 'crisis_create' %}">Add New Crisis</a>
 <ul>
     {% for crisis in crises %}
     <li>
+        <a href="{% url 'crisis_detail' crisis.id %}">{{ crisis.name }}</a>
         <a href="{% url 'crisis_report' crisis.id %}">{{ crisis.name }}</a>
         <a href="{% url 'crisis_update' crisis.id %}">Edit</a>
         <a href="{% url 'crisis_delete' crisis.id %}">Delete</a>

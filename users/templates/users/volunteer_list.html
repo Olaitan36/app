@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
+<!-- {% extends 'users/volunteer_list.html' %} -->
+{% extends 'users/base.html' %}
 
 {% block title %}Volunteer List{% endblock %}
 
 {% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
 <h2>Volunteers</h2>
 <a href="{% url 'volunteer_create' %}">Add New Volunteer</a>
 <table>
