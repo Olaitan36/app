@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>{% block title %}Lilian Initiative{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>World Lilianinitiative Crisis Coordination</h1>
+        <nav>
+            <ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="{% url 'crisis_list' %}">Crises</a></li>
+				<li><a href="{% url 'resource_list' crisis_id=1 %}">Resources</a></li> <!-- Replace 1 with the actual crisis ID you want to link to -->
+				<li><a href="{% url 'donation_list' %}">Donations</a></li>
+				<li><a href="{% url 'volunteer_list' %}">Volunteers</a></li>
+			</ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Lilian Initiative</p>
+    </footer>
+</body>
+</html>

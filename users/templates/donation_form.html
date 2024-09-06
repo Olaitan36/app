@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lilian Initiative{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<header>
+    <h1>Global Crisis Coordination</h1>
+    <nav>
+        <a href="{% url 'resource_list' %}">Resources</a>
+        <a href="{% url 'donation_list' %}">Donations</a>
+        <a href="{% url 'volunteer_list' %}">Volunteers</a>
+    </nav>
+</header>
+<h2>{% if form.instance.pk %}Edit Donation{% else %}Add Donation{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
