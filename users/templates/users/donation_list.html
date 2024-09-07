@@ -1,12 +1,10 @@
 {% extends 'users/base.html' %}
 
-{% block title %}Donation List{% endblock %}
 
 {% block content %}
 {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
-<h2>Donations</h2>
 <a href="{% url 'donation_create' %}">Add New Donation</a>
 <table>
     <tr>
@@ -25,6 +23,16 @@
             <a href="{% url 'donation_delete' donation.pk %}">Delete</a>
         </td>
     </tr>
+    
+    <h2>Donation List</h2>
+    <ul>
+        {% for donation in donations %}
+        <li>
+            <a href="{% url 'donation_detail' donation.id %}">{{ donation.donor_name }}</a> - {{ donation.amount }} {{ donation.currency }}
+        </li>
+        {% endfor %}
+    </ul>
+
     {% endfor %}
 </table>
 {% endblock %}

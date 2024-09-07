@@ -27,6 +27,14 @@
             <a href="{% url 'volunteer_delete' volunteer.pk %}">Delete</a>
         </td>
     </tr>
+    <h2>Volunteer List</h2>
+    <ul>
+        {% for volunteer in volunteers %}
+        <li>
+            <a href="{% url 'volunteer_detail' volunteer.id %}">{{ volunteer.name }}</a> - {{ volunteer.email }}
+        </li>
+        {% endfor %}
+    </ul>
     {% endfor %}
 </table>
 {% endblock %}

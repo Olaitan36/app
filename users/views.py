@@ -8,7 +8,7 @@ from django.db import models
 
 
 def base_view(request):
-    return render(request, 'base.html')
+    return render(request, 'users/base.html')
 # Resource Views
 def resource_list(request):
     resources = Resource.objects.all()
